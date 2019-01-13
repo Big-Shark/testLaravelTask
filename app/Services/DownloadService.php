@@ -11,10 +11,28 @@ use Illuminate\Support\Collection;
 
 class DownloadService
 {
+    /**
+     * @var DownloaderInterface
+     */
     private $downloader;
+
+    /**
+     * @var \SM\Factory\FactoryInterface
+     */
     private $stateMachineFacroty;
+
+    /**
+     * @var string
+     */
     private $path;
 
+    /**
+     * DownloadService constructor.
+     *
+     * @param $path
+     * @param DownloaderInterface          $downloader
+     * @param \SM\Factory\FactoryInterface $stateMachineFacroty
+     */
     public function __construct(
         $path,
         DownloaderInterface $downloader,

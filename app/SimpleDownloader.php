@@ -7,17 +7,44 @@ namespace App;
 use Illuminate\Filesystem\FilesystemAdapter;
 use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesserInterface;
 
+/**
+ * Class SimpleDownloader.
+ */
 class SimpleDownloader implements DownloaderInterface
 {
+    /**
+     * @var FilesystemAdapter
+     */
     private $storage;
+
+    /**
+     * @var ExtensionGuesserInterface
+     */
     private $extensionGuesser;
 
+    /**
+     * SimpleDownloader constructor.
+     *
+     * @param FilesystemAdapter         $storage
+     * @param ExtensionGuesserInterface $extensionGuesser
+     */
     public function __construct(FilesystemAdapter $storage, ExtensionGuesserInterface $extensionGuesser)
     {
         $this->storage = $storage;
         $this->extensionGuesser = $extensionGuesser;
     }
 
+    /**
+     * @param string $url
+     * @param $filePath
+     *
+     * @throws DownloaderException
+     * @throws \Illuminate\Contracts\Filesystem\FileExistsException
+     * @throws \League\Flysystem\FileExistsException
+     * @throws \League\Flysystem\FileNotFoundException
+     *
+     * @return mixed|string
+     */
     public function download(string $url, $filePath)
     {
         try {

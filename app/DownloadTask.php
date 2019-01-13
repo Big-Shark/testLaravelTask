@@ -6,6 +6,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class DownloadTask.
+ */
 class DownloadTask extends Model
 {
 }
