@@ -64,7 +64,7 @@
                         <td>{{ $task->status }}</td>
                         <td>{{ $task->download_at }}</td>
                         <td>{{ $task->created_at }}</td>
-                        <td>{{ $task->created_at }}</td>
+                        <td>{{ $task->updated_at }}</td>
                     </tr>
                 @endforeach
             </table>
