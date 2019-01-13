@@ -17,14 +17,15 @@ class ApiTasksTest extends TestCase
 
     public function testApiCreateTask()
     {
-        $response = $this->postJson('/api/tasks/', ['url' => 'http://127.0.0.1/test.zip'], ['Content-Type' => 'application/json']);
+        $response = $this->postJson('/api/tasks/', ['url' => 'http://127.0.0.1/test.zip']);
 
         $response->assertStatus(200);
     }
 
     public function testApiCreateTaskNotValid()
     {
-        $response = $this->postJson('/api/tasks/', ['url' => '123'], ['Content-Type' => 'application/json']);
+        $response = $this->postJson('/api/tasks/', ['url' => '123']);
+
         $response->assertStatus(422);
     }
 }
