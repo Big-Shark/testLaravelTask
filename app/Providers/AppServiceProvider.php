@@ -10,9 +10,6 @@ use App\SimpleDownloader;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Mimey\MimeTypes;
-use Mimey\MimeTypesInterface;
-use SM\Factory\FactoryInterface;
 use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesser;
 use Symfony\Component\HttpFoundation\File\MimeType\ExtensionGuesserInterface;
 
@@ -39,14 +36,8 @@ class AppServiceProvider extends ServiceProvider
             return new SimpleDownloader($app->make(Filesystem::class), $app->make(ExtensionGuesserInterface::class));
         });
 
-        //$this->app->bind(MimeTypesInterface::class, MimeTypes::class);
-
-        $this->app->bind(DownloadService::class, function (Application $app): DownloadService {
-            return new DownloadService(
-                '/download-files/',
-                $app->make(DownloaderInterface::class),
-                $app->make(FactoryInterface::class)
-            );
-        });
+        $this->app->when(DownloadService::class)
+            ->needs('$path')
+            ->give('/public/download-files/');
     }
 }
