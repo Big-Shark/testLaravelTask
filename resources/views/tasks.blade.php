@@ -60,7 +60,7 @@
                     <tr>
                         <td>{{ $task->id }}</td>
                         <td>{{ $task->url }}</td>
-                        <td>{{ $task->file_path }}</td>
+                        <td><a href="{{ Storage::url($task->file_path) }}" target="_blank">{{ $task->file_path }}</a></td>
                         <td>{{ $task->status }}</td>
                         <td>{{ $task->download_at }}</td>
                         <td>{{ $task->created_at }}</td>

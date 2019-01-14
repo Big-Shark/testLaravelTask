@@ -29,12 +29,12 @@ class DownloadService
     /**
      * DownloadService constructor.
      *
-     * @param $path
+     * @param string                       $path
      * @param DownloaderInterface          $downloader
      * @param \SM\Factory\FactoryInterface $stateMachineFacroty
      */
     public function __construct(
-        $path,
+        string $path,
         DownloaderInterface $downloader,
         \SM\Factory\FactoryInterface $stateMachineFacroty
     ) {

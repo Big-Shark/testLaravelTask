@@ -1,6 +1,7 @@
 Install
 ```
 composer install
+php ./artisan storage:link
 ```
 
 Endpoints:

@@ -8,6 +8,7 @@ use App\DownloaderInterface;
 use App\Services\DownloadService;
 use App\SimpleDownloader;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Mimey\MimeTypes;
 use Mimey\MimeTypesInterface;
@@ -30,22 +31,21 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(DownloaderInterface::class, SimpleDownloader::class);
-        $this->app->singleton(ExtensionGuesserInterface::class, function ($app) {
+        $this->app->singleton(ExtensionGuesserInterface::class, function (Application $app): ExtensionGuesser {
             return ExtensionGuesser::getInstance();
         });
 
-        $this->app->bind(SimpleDownloader::class, function ($app) {
+        $this->app->bind(SimpleDownloader::class, function (Application $app): SimpleDownloader {
             return new SimpleDownloader($app->make(Filesystem::class), $app->make(ExtensionGuesserInterface::class));
         });
 
         //$this->app->bind(MimeTypesInterface::class, MimeTypes::class);
 
-        $this->app->bind(DownloadService::class, function ($app) {
+        $this->app->bind(DownloadService::class, function (Application $app): DownloadService {
             return new DownloadService(
                 '/download-files/',
                 $app->make(DownloaderInterface::class),
                 $app->make(FactoryInterface::class)
-          //      $app->make(MimeTypesInterface::class)
             );
         });
     }
